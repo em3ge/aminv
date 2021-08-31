@@ -1,0 +1,26 @@
+<nav class="navbar navbar-light" style="background-color: #081655;">
+    {% if logueado == false %}
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand">Login</a>
+            <form class="d-flex" method="post" action="/entrar" enctype="multipart/form-data">
+                <input class="form-control me-2" type="password" placeholder="Contraseña" aria-label="Search" id="clave" name="clave">
+                <button class="btn btn-primary" type="submit">Entrar</button>
+            </form>
+        <span class="navbar-toggler-icon"></span>
+
+        {% if logueado == false %}
+        <form class="d-flex" method="post" action="/nuevo" enctype="multipart/form-data">
+            <button class="btn btn-success" type="submit">Registro</button>
+        </form>
+        {% endif %}
+    </nav>
+    {% endif %}
+    {% if logueado == true %}
+    <nav class="navbar navbar-light bg-light">
+        <form class="d-flex" method="post" action="logout" enctype="multipart/form-data">
+            <button class="btn btn-success" type="submit">Logout</button>
+        </form>
+    </nav>
+    {% endif %}
+</nav>
