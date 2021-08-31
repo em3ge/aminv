@@ -1,0 +1,118 @@
+{% include 'header.html' %}
+
+<h4>Amigo Invisible Mik 1.0</h4>
+
+{% include 'navegacion.html' %}
+
+{% if logueado == true %}
+
+<span class="navbar-toggler-icon"></span>
+<table class="table table-dark table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>Clave</th><th>Fecha</th><th>Hora</th><th>Contador</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ clave }}</td><td>{{ fecha }}</td><td>{{ hora }}</td><td>{{ contador-1 }}</td> 
+        </tr>
+    </tbody>
+</table>
+
+<h4>Agregar amigo</h4>
+
+<form method="post" action="/store" enctype="multipart/form-data">
+    
+    <table class="table table-primary">
+        <thead class="thead-primary">
+            <tr>
+              <th scope="row">#</th>
+              <td><input type="text" name="txtNombre" id="txtNombre" placeholder="Nombre"></td>
+              <td><input type="text" name="txtCorreo" id="txtCorreo" placeholder="Correo"></td>
+              <input type="hidden" name="clave" id="clave" value="{{ clave }}">
+              <td><input type="submit" value="Agregar"></td>
+            </tr>
+          </thead>
+      </table>
+    </form>
+
+<h4>Amigos</h4>
+<table class="table table-light">
+    <thead class="thead-light">
+        <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Correo</th>
+            <th>No regala a</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for amigo in amigos %}
+        <tr>
+            <td>{{amigo[0]}}</td>
+            <td>{{amigo[1]}}</td>
+            <td>{{amigo[2]}}</td>
+            <td>
+                <table>
+                    <tr>
+                        <form method="post" action="/reset_no_regalo" enctype="multipart/form-data">
+                            <input type="hidden" name="clave" id="clave" value="{{ clave }}">
+                            <input type="hidden" name="id" id="id" value="{{amigo[0]}}">
+                            <input type="submit" value="Reset">
+                        </form> ·
+                        <form method="post" action="/no_regalo" enctype="multipart/form-data">
+                            <input type="text" name="nuevo_no_regalo" id="nuevo_no_regalo" size=40 style="width:50px">
+                            <input type="hidden" name="clave" id="clave" value="{{ clave }}">
+                            <input type="hidden" name="id" id="id" value="{{amigo[0]}}"> ·
+                            <input type="submit" value="Añadir"> {{amigo[3]}} 
+                        </form>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table>
+                    
+                    <tr>
+                        <form method="post" action="/editar" enctype="multipart/form-data">
+                            <input type="hidden" name="clave" id="clave" value="{{ clave }}">
+                            <input type="hidden" name="id" id="id" value="{{amigo[0]}}">
+                            <input type="submit" value="Editar">
+                        </form>
+                    </tr> ·
+                    <tr>
+                        <form method="post" action="/destroy/{{amigo[0]}}" enctype="multipart/form-data">
+                            <input type="hidden" name="clave" id="clave" value="{{ clave }}">
+                            <input type="submit" value="Eliminar">
+                        </form>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+    {% endif %}
+
+    <h4>Acciones</h4>
+    <table class="table table-light">
+        <thead class="thead-light">
+            <tr>
+                <th>Acciones</th>
+                <th>
+                    <form method="post" action="/asignar" enctype="multipart/form-data">
+                        <input type="submit" value="Asignar">
+                    </form>
+                </th>
+                <th>
+                    <form method="post" action="/mandar_correos" enctype="multipart/form-data">
+                        <input type="submit" value="Mandar correos">
+                    </form>
+                </th>
+            </tr>
+        </thead>
+    </table>
+
+{% include 'footer.html' %}

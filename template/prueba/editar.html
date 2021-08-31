@@ -1,0 +1,55 @@
+{% include 'header.html' %}
+
+<h4>Amigo Invisible Mik 1.0</h4>
+
+{% include 'navegacion.html' %}
+
+<span class="navbar-toggler-icon"></span>
+<table class="table table-dark table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>Clave</th><th>Fecha</th><th>Hora</th><th>Contador</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ clave }}</td><td>{{ fecha }}</td><td>{{ hora }}</td><td>{{ contador-1 }}</td> 
+        </tr>
+    </tbody>
+</table>
+
+<h4>Editar amigo</h4>
+
+<form method="post" action="/confirmar_edicion" enctype="multipart/form-data">
+    
+    <table class="table table-primary">
+        <thead class="thead-primary">
+            <tr><b>
+                <th scope="row"><b>#</b></th>
+                <td><b>Nombre</b></td>
+                <td><b>Correo</b></td>
+                <td><b>Acciones</b></td>
+            </b>
+              </tr>
+        </thead>
+        <tbody>
+            <tr>
+              <th>{{ amigo[0][0] }}</th>
+              <td>{{ amigo[0][1] }}</td>
+              <td>{{ amigo[0][2] }}</td>
+              <td></td>
+            </tr>
+            <tr>
+                <th scope="row"></th>
+                <td><input type="text" name="txtNombre"></td>
+                <td><input type="text" name="txtCorreo"></td>
+                <input type="hidden" name="id" value="{{ amigo[0][0] }}">
+                <td><input type="submit" value="Confirmar"></td>
+              </tr>
+        </tbody>
+
+          
+      </table>
+    </form>
+
+    {% include 'footer.html' %}
